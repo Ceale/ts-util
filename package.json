@@ -5,7 +5,7 @@
   "module": "index.ts",
   "type": "module",
   "repository": {
-    "url": "https://github.com/Ceale/ts-util.git"
+    "url": "git+https://github.com/Ceale/ts-util.git"
   },
   "scripts": {
     "build": "bun run build:esm && bun run build:cjs",
