@@ -1,6 +1,6 @@
 import { StringUtil } from "./string"
 
-export const UrlUtil = (url: string) => ({
+export const UrlUtil = (url?: string) => ({
     join(...path: string[]) {
         return path
         .filter(p => p !== '')
