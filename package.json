@@ -1,7 +1,7 @@
 {
   "name": "@ceale/util",
   "author": "Ceale",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "module": "index.ts",
   "type": "module",
   "repository": {
@@ -10,8 +10,7 @@
   "scripts": {
     "build": "bun run build:esm && bun run build:cjs",
     "build:esm": "bun build --outdir=dist/esm/ --format=esm --target=node src/index.ts",
-    "build:cjs": "bun build --outdir=dist/cjs/ --format=cjs --target=node src/index.ts",
-    "publish": "npm publish"
+    "build:cjs": "bun build --outdir=dist/cjs/ --format=cjs --target=node src/index.ts"
   },
   "exports": {
     ".": {
