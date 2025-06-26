@@ -1,7 +1,7 @@
 import { StringUtil } from "./string"
 
-export const UrlUtil = (url?: string) => ({
-    join(...path: string[]) {
+export namespace UrlUtil {
+    const join = (...path: string[]) => {
         return path
         .filter(p => p !== '')
         .map((p, index) => {
@@ -12,4 +12,4 @@ export const UrlUtil = (url?: string) => ({
         })
         .join("")
     }
-})
+}
