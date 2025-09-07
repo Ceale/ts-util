@@ -14,7 +14,7 @@
     "build": "bun run build:esm && bun run build:cjs && bun run build:ts",
     "build:esm": "bun build --outdir=dist/esm/ --format=esm --target=node src/index.ts",
     "build:cjs": "bun build --outdir=dist/cjs/ --format=cjs --target=node src/index.ts",
-    "build:ts": "tsc --outDir dist/ts/"
+    "build:ts": "tsc --project tsconfig.build.json"
   },
   "exports": {
     ".": {

@@ -1,0 +1,12 @@
+// tsconfig.build.json
+{
+  "extends": "./tsconfig.json", // 继承你的主配置，避免重复
+  "compilerOptions": {
+    // --- 覆盖主配置中的几个关键选项 ---
+    "rootDir": "src", // 1. 告诉 tsc，源码的根目录是 'src'
+    "declarationDir": "dist/types" // 你已经有了，保持不变
+  },
+  // --- 最重要的改动 ---
+  "include": ["src/**/*"], // 2. 构建时只包含 'src' 目录
+  "exclude": ["node_modules", "dist", "test"] // 3. 明确排除 test 和其他目录
+}
