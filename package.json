@@ -1,22 +1,28 @@
 {
   "name": "@ceale/util",
   "author": "Ceale",
-  "version": "1.0.7",
+  "version": "1.4.0",
   "module": "index.ts",
   "type": "module",
+  "main": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": ["dist"],
   "repository": {
     "url": "git+https://github.com/Ceale/ts-util.git"
   },
   "scripts": {
-    "build": "bun run build:esm && bun run build:cjs",
+    "build": "bun run build:esm && bun run build:cjs && bun run build:ts",
     "build:esm": "bun build --outdir=dist/esm/ --format=esm --target=node src/index.ts",
-    "build:cjs": "bun build --outdir=dist/cjs/ --format=cjs --target=node src/index.ts"
+    "build:cjs": "bun build --outdir=dist/cjs/ --format=cjs --target=node src/index.ts",
+    "build:ts": "tsc --outDir dist/ts/"
   },
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
-    }
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./package.json": "./package.json"
   },
   "devDependencies": {
     "@types/bun": "latest"
