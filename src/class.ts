@@ -4,32 +4,32 @@ type AnyClass = new (...args: any[]) => any
 declare global {
     interface Function {
         /**
-         * 检查 `potentialChild` 是否是当前类的直接子类。
-         * @param potentialChild 潜在的子类构造函数。
-         * @returns 如果是直接子类，则返回 `true`；否则返回 `false`。
+         * 检查 `potentialChild` 是否是当前类的直接子类
+         * @param potentialChild 潜在的子类构造函数
+         * @returns 如果是直接子类，则返回 `true`；否则返回 `false`
          */
         isDirectSubclass(this: AnyClass, potentialChild: unknown): boolean
 
         /**
-         * 检查 `potentialDescendant` 是否是当前类的子孙类或当前类本身。
-         * @param potentialDescendant 潜在的子孙类或类本身。
-         * @returns 如果是子孙类或类本身，则返回 `true`；否则返回 `false`。
+         * 检查 `potentialDescendant` 是否是当前类的子孙类或当前类本身
+         * @param potentialDescendant 潜在的子孙类或类本身
+         * @returns 如果是子孙类或类本身，则返回 `true`；否则返回 `false`
          */
         isSubclass(this: AnyClass, potentialDescendant: unknown): boolean
 
         /**
-         * 检查 `potentialInstance` 是否由当前类直接构造。
-         * 判断依据: `Object.getPrototypeOf(potentialInstance).constructor === this`。
-         * @param potentialInstance 潜在的实例对象。
-         * @returns 如果是由当前类直接创建的实例，则返回 `true`；否则返回 `false`。
+         * 检查 `potentialInstance` 是否由当前类直接构造
+         * 判断依据: `Object.getPrototypeOf(potentialInstance).constructor === this`
+         * @param potentialInstance 潜在的实例对象
+         * @returns 如果是由当前类直接创建的实例，则返回 `true`；否则返回 `false`
          */
         isDirectInstance(this: AnyClass, potentialInstance: unknown): boolean
 
         /**
-         * 检查 `potentialInstance` 是否是当前类或其任何子类的实例。
-         * 内部使用 `instanceof` 操作符。
-         * @param potentialInstance 潜在的实例对象。
-         * @returns 如果是实例，则返回 `true`；否则返回 `false`。
+         * 检查 `potentialInstance` 是否是当前类或其任何子类的实例
+         * 内部使用 `instanceof` 操作符
+         * @param potentialInstance 潜在的实例对象
+         * @returns 如果是实例，则返回 `true`；否则返回 `false`
          */
         isInstance(this: AnyClass, potentialInstance: unknown): boolean
     }

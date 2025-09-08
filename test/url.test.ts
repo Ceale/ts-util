@@ -39,10 +39,10 @@ const testCases: { input: string[], expected: string }[] = [
 ]
 
 import { test, expect } from "bun:test"
-import { URI } from "src/uri"
+import { uri } from "src/uri"
 
 testCases.forEach(({ input, expected }, i) => {
     test(`src/url #${i + 1}: join(${input.map(s => JSON.stringify(s)).join(', ')})`, () => {
-        expect(URI.join(...input)).toBe(expected)
+        expect(uri.join(...input)).toBe(expected)
     })
 })
