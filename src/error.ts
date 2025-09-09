@@ -15,7 +15,7 @@ interface tryCatch {
     <V>(arg: (() => V)): Result<V>
 }
 
-const tryCatch: tryCatch = (parameter: any): any => {
+export const tryCatch: tryCatch = (parameter: any): any => {
     // 处理 Promise
     if (parameter instanceof Promise) {
         return parameter
