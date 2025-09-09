@@ -1,6 +1,5 @@
 import type { CSSProperties } from "vue"
 import type { AtRules } from "csstype"
-import { ElementTypes } from "@vue/compiler-core"
 
 export namespace css {
     
