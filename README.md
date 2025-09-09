@@ -39,3 +39,5 @@
         - solveTForX()
     - class `QuadraticBezier`
     - class `CubicBezier`
+- `error.ts`
+    - tryCatch()
