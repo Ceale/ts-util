@@ -11,7 +11,7 @@ class BezierError extends Error {
 export namespace quadraticCurve {
 
     /**
-     * [二次] 给定控制点 P1 和 t (时间)，计算 x 坐标
+     * 给定控制点 P1 和 t (时间)，计算 x 坐标
      * @param p1 控制点1 的坐标
      * @param t 时间比例 [0, 1]
      * @returns x 坐标
@@ -25,7 +25,7 @@ export namespace quadraticCurve {
     }
 
     /**
-     * [二次] 给定控制点 P1 和 t (时间)，计算 y 坐标
+     * 给定控制点 P1 和 t (时间)，计算 y 坐标
      * @param p1 控制点1 坐标
      * @param t 时间比例 [0, 1]
      * @returns y 坐标
@@ -37,13 +37,14 @@ export namespace quadraticCurve {
     }
 
     /**
-     * [二次] 给定控制点 P1 和 x (坐标)，反向求解 t (时间)
+     * 给定控制点 P1 和 x (坐标)，求解 t (时间)
      * 使用二分查找法
      * @param p1 控制点1 坐标
      * @param x 目标 x 坐标 [0, 1]
+     * @param iterations 可选，二分法求值迭代次数，默认15次
      * @returns 对应的时间 t
      */
-    export const solveTForX = (p1: Point, x: number, iterations: number = 8): number => {
+    export const solveTForX = (p1: Point, x: number, iterations: number = 15): number => {
         let tMin = 0.0
         let tMax = 1.0
         let tGuess: number
@@ -59,13 +60,26 @@ export namespace quadraticCurve {
         }
         return (tMin + tMax) / 2
     }
+
+    /**
+     * 给定控制点 P1 和 x (坐标)，求解 y (坐标)
+     * 使用二分查找法
+     * @param p1 控制点1 坐标
+     * @param x 目标 x 坐标 [0, 1]
+     * @returns 对应的时间 t
+     * @param iterations 可选，二分法求值迭代次数，默认15次
+     */
+    export const solveYForX = (p1: Point, x: number, iterations: number = 15): number => {
+        const t = solveTForX(p1, x, iterations)
+        return solveY(p1, t)
+    }
 }
 
 // --- 三次贝塞尔曲线核心计算 (P₀=(0,0), P₃=(1,1)) ---
 export namespace cubicCurve {
 
     /**
-     * [三次] 给定控制点 P1, P2 和 t (时间)，计算 x 坐标
+     * 给定控制点 P1, P2 和 t (时间)，计算 x 坐标
      * @param \[p1, p2] 控制点1 控制点2 的坐标
      * @param t 时间比例 [0, 1]
      * @returns x 坐标
@@ -81,7 +95,7 @@ export namespace cubicCurve {
     }
 
     /**
-     * [三次] 给定控制点 P1, P2 和 t (时间)，计算 y 坐标
+     * 给定控制点 P1, P2 和 t (时间)，计算 y 坐标
      * @param \[p1, p2] 控制点1 控制点2 的坐标
      * @param t 时间比例 [0, 1]
      * @returns y 坐标
@@ -95,13 +109,14 @@ export namespace cubicCurve {
     }
 
     /**
-     * [三次] 给定控制点 P1, P2 和 x (坐标)，反向求解 t (时间)
+     * 给定控制点 P1, P2 和 x (坐标)，求解 t (时间)
      * 使用二分查找法
      * @param \[p1, p2] 控制点1 控制点2 的坐标
      * @param x 目标 x 坐标 [0, 1]
      * @returns 对应的时间 t
+     * @param iterations 可选，二分法求值迭代次数，默认20次
      */
-    export const solveTForX = ([p1, p2]: [Point, Point], x: number, iterations: number = 12): number => {
+    export const solveTForX = ([p1, p2]: [Point, Point], x: number, iterations: number = 20): number => {
         let tMin = 0.0
         let tMax = 1.0
         let tGuess: number
@@ -117,6 +132,19 @@ export namespace cubicCurve {
         }
         return (tMin + tMax) / 2
     }
+
+    /**
+     * 给定控制点 P1 和 x (坐标)，求解 y (坐标)
+     * 使用二分查找法
+     * @param p1 控制点1 坐标
+     * @param x 目标 x 坐标 [0, 1]
+     * @returns 对应的时间 t
+     * @param iterations 可选，二分法求值迭代次数，默认20次
+     */
+    export const solveYForX = ([p1, p2]: [Point, Point], x: number, iterations: number = 20): number => {
+        const t = solveTForX([p1, p2], x, iterations)
+        return solveY([p1, p2], t)
+    }
 }
 
 
@@ -125,11 +153,15 @@ export namespace cubicCurve {
  */
 export class QuadraticBezier {
 
+    cache = new Map<number, number>()
+
     /**
      * @param p1 控制点 P1
+     * @param accuracy 缓存精度(`10^-accuracy`)，默认为`4`，`-1`则表示不缓存
      */
     constructor(
-        private readonly p1: Point
+        private readonly p1: Point,
+        private readonly accuracy: number = 4
     ) {
         if (this.p1[0] < 0 || this.p1[0] > 1) {
             throw new BezierError("控制点P1的x坐标必须在[0, 1]之间")
@@ -154,8 +186,15 @@ export class QuadraticBezier {
      * 根据 x 坐标 [0, 1]，计算 y 坐标
      */
     solveYForX(x: number): number {
-        const t = quadraticCurve.solveTForX(this.p1, x)
-        return this.solveY(t)
+        if (this.accuracy === -1) return quadraticCurve.solveYForX(this.p1, x)
+        else {
+            const roughX = Math.round(x * this.accuracy)
+            return this.cache.get(roughX) ?? (()=>{
+                const y = quadraticCurve.solveYForX(this.p1, x)
+                this.cache.set(roughX, y)
+                return y
+            })()
+        }
     }
 }
 
@@ -163,13 +202,18 @@ export class QuadraticBezier {
  * 代表一个三次贝塞尔缓动曲线
  */
 export class CubicBezier {
+
+    cache = new Map<number, number>()
+
     /**
      * @param p1 控制点 P1
      * @param p2 控制点 P2
+     * @param accuracy 缓存精度(`10^-accuracy`)，默认为`4`，`-1`则表示不缓存
      */
     constructor(
         private readonly p1: Point,
-        private readonly p2: Point
+        private readonly p2: Point,
+        private readonly accuracy: number = 4
     ) {
         if (this.p1[0] < 0 || this.p1[0] > 1) {
             throw new BezierError("控制点P1的x坐标必须在[0, 1]之间")
@@ -197,7 +241,14 @@ export class CubicBezier {
      * 根据 x 坐标 [0, 1]，计算 y 坐标
      */
     solveYForX(x: number): number {
-        const t = cubicCurve.solveTForX([this.p1, this.p2], x)
-        return this.solveY(t)
+        if (this.accuracy === -1) return cubicCurve.solveYForX([this.p1, this.p2], x)
+        else {
+            const roughX = Math.round(x * this.accuracy)
+            return this.cache.get(roughX) ?? (()=>{
+                const y = cubicCurve.solveYForX([this.p1, this.p2], x)
+                this.cache.set(roughX, y)
+                return y
+            })()
+        }
     }
 }
