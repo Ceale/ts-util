@@ -61,11 +61,11 @@ export const tryCatch: tryCatch = (parameter: any): any => {
     throw new TypeError("参数类型错误，应为 Promise 或函数")
 }
 
-import fs from "node:fs/promises"
-(async () => {
-    const a = await tryCatch(fs.stat("a.txt"))
-    console.log(typeof a)
-})()
+// import fs from "node:fs/promises"
+// (async () => {
+//     const a = await tryCatch(fs.stat("a.txt"))
+//     console.log(typeof a)
+// })()
 // console.log(a)
 // if (!a.error) {
 //     console.log(a.error)
