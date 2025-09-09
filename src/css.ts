@@ -24,7 +24,7 @@ export namespace css {
      *     "--my-custom-var": "blue"
      * })
      */
-    export const rule = (rule: CSSProperties & { [key: string]: string }): RuleValue => {
+    export const rule = (rule: CSSProperties & { [key: string]: any }): RuleValue => {
         return Object.entries(rule)
             .map(([key, value]) => `${key.toKebabCase()}: ${value};`)
             .join("\n") as RuleValue
