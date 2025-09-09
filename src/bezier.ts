@@ -11,10 +11,10 @@ class BezierError extends Error {
 export namespace quadraticCurve {
 
     /**
-     * [二次] 给定控制点 P1 和 t (时间)，计算 x 坐标。
-     * @param p1x P1 的 x 坐标。
-     * @param t 时间比例 [0, 1]。
-     * @returns x 坐标。
+     * [二次] 给定控制点 P1 和 t (时间)，计算 x 坐标
+     * @param p1 控制点1 的坐标
+     * @param t 时间比例 [0, 1]
+     * @returns x 坐标
      */
     export const solveX = (p1: Point, t: number): number => {
         const [p1x, p1y] = p1
@@ -25,10 +25,10 @@ export namespace quadraticCurve {
     }
 
     /**
-     * [二次] 给定控制点 P1 和 t (时间)，计算 y 坐标。
-     * @param p1y P1 的 y 坐标。
-     * @param t 时间比例 [0, 1]。
-     * @returns y 坐标。
+     * [二次] 给定控制点 P1 和 t (时间)，计算 y 坐标
+     * @param p1 控制点1 坐标
+     * @param t 时间比例 [0, 1]
+     * @returns y 坐标
      */
     export const solveY = (p1: Point, t: number): number => {
         const [p1x, p1y] = p1
@@ -37,11 +37,11 @@ export namespace quadraticCurve {
     }
 
     /**
-     * [二次] 给定控制点 P1 和 x (坐标)，反向求解 t (时间)。
-     * 使用二分查找法。
-     * @param p1x P1 的 x 坐标。
-     * @param x 目标 x 坐标 [0, 1]。
-     * @returns 对应的时间 t。
+     * [二次] 给定控制点 P1 和 x (坐标)，反向求解 t (时间)
+     * 使用二分查找法
+     * @param p1 控制点1 坐标
+     * @param x 目标 x 坐标 [0, 1]
+     * @returns 对应的时间 t
      */
     export const solveTForX = (p1: Point, x: number, iterations: number = 8): number => {
         let tMin = 0.0
@@ -65,11 +65,10 @@ export namespace quadraticCurve {
 export namespace cubicCurve {
 
     /**
-     * [三次] 给定控制点 P1, P2 和 t (时间)，计算 x 坐标。
-     * @param p1x P1 的 x 坐标。
-     * @param p2x P2 的 x 坐标。
-     * @param t 时间比例 [0, 1]。
-     * @returns x 坐标。
+     * [三次] 给定控制点 P1, P2 和 t (时间)，计算 x 坐标
+     * @param \[p1, p2] 控制点1 控制点2 的坐标
+     * @param t 时间比例 [0, 1]
+     * @returns x 坐标
      */
     export const solveX = ([p1, p2]: [Point, Point],  t: number): number => {
         const [p1x, p1y] = p1
@@ -82,11 +81,10 @@ export namespace cubicCurve {
     }
 
     /**
-     * [三次] 给定控制点 P1, P2 和 t (时间)，计算 y 坐标。
-     * @param p1y P1 的 y 坐标。
-     * @param p2y P2 的 y 坐标。
-     * @param t 时间比例 [0, 1]。
-     * @returns y 坐标。
+     * [三次] 给定控制点 P1, P2 和 t (时间)，计算 y 坐标
+     * @param \[p1, p2] 控制点1 控制点2 的坐标
+     * @param t 时间比例 [0, 1]
+     * @returns y 坐标
      */
     export const solveY = ([p1, p2]: [Point, Point], t: number): number => {
         const [p1x, p1y] = p1
@@ -97,12 +95,11 @@ export namespace cubicCurve {
     }
 
     /**
-     * [三次] 给定控制点 P1, P2 和 x (坐标)，反向求解 t (时间)。
-     * 使用二分查找法。
-     * @param p1x P1 的 x 坐标。
-     * @param p2x P2 的 x 坐标。
-     * @param x 目标 x 坐标 [0, 1]。
-     * @returns 对应的时间 t。
+     * [三次] 给定控制点 P1, P2 和 x (坐标)，反向求解 t (时间)
+     * 使用二分查找法
+     * @param \[p1, p2] 控制点1 控制点2 的坐标
+     * @param x 目标 x 坐标 [0, 1]
+     * @returns 对应的时间 t
      */
     export const solveTForX = ([p1, p2]: [Point, Point], x: number, iterations: number = 12): number => {
         let tMin = 0.0
@@ -140,21 +137,21 @@ export class QuadraticBezier {
     }
 
     /**
-     * 根据时间 t [0, 1]，计算 x 坐标。
+     * 根据时间 t [0, 1]，计算 x 坐标
      */
     solveX(t: number): number {
         return quadraticCurve.solveX(this.p1, t)
     }
 
     /**
-     * 根据时间 t [0, 1]，计算 y 坐标。
+     * 根据时间 t [0, 1]，计算 y 坐标
      */
     solveY(t: number): number {
         return quadraticCurve.solveY(this.p1, t)
     }
 
     /**
-     * 根据 x 坐标 [0, 1]，计算 y 坐标。
+     * 根据 x 坐标 [0, 1]，计算 y 坐标
      */
     solveYForX(x: number): number {
         const t = quadraticCurve.solveTForX(this.p1, x)
@@ -183,21 +180,21 @@ export class CubicBezier {
     }
 
     /**
-     * 根据时间 t [0, 1]，计算 x 坐标。
+     * 根据时间 t [0, 1]，计算 x 坐标
      */
     solveX(t: number): number {
         return cubicCurve.solveX([this.p1, this.p2], t)
     }
 
     /**
-     * 根据时间 t [0, 1]，计算 y 坐标。
+     * 根据时间 t [0, 1]，计算 y 坐标
      */
     solveY(t: number): number {
         return cubicCurve.solveY([this.p1, this.p2], t)
     }
 
     /**
-     * 根据 x 坐标 [0, 1]，计算 y 坐标。
+     * 根据 x 坐标 [0, 1]，计算 y 坐标
      */
     solveYForX(x: number): number {
         const t = cubicCurve.solveTForX([this.p1, this.p2], x)
