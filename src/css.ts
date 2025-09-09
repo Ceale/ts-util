@@ -3,18 +3,13 @@ import type { AtRules } from "csstype"
 
 export namespace css {
     
-    declare const RuleValueSymbol: unique symbol
-    type RuleValue = string & { [RuleValueSymbol]: never }
-
-    declare const RuleBlockValueSymbol: unique symbol
-    type RuleBlockValue = string & { [RuleBlockValueSymbol]: never }
-    
-    declare const AtValueSymbol: unique symbol
-    type AtValue = string & { [AtValueSymbol]: never }
+    type RuleValue = string & { RuleValue: never }
+    type RuleBlockValue = string & { RuleBlockValue: never }
+    type AtValue = string & { AtValue: never }
 
     /**
      * 从一个样式对象，创建一个 CSS 规则字符串
-     * @param styles 一个样式对象，使用 Vue 的 `CSSProperties` 类型，同时允许自定义属性
+     * @param rule 一个样式规则对象，使用 Vue 的 `CSSProperties` 类型，同时允许自定义属性
      * @returns 返回类型为`RuleValue`的字符串，可以传入`css.selector()`和`css.at()`
      * 
      * @example
