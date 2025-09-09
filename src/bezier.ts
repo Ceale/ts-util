@@ -45,6 +45,9 @@ export namespace quadraticCurve {
      * @returns 对应的时间 t
      */
     export const solveTForX = (p1: Point, x: number, iterations: number = 15): number => {
+        if (x <= 0) return 0
+        if (x >= 1) return 1
+
         let tMin = 0.0
         let tMax = 1.0
         let tGuess: number
@@ -117,6 +120,9 @@ export namespace cubicCurve {
      * @param iterations 可选，二分法求值迭代次数，默认20次
      */
     export const solveTForX = ([p1, p2]: [Point, Point], x: number, iterations: number = 20): number => {
+        if (x <= 0) return 0
+        if (x >= 1) return 1
+
         let tMin = 0.0
         let tMax = 1.0
         let tGuess: number
@@ -161,10 +167,13 @@ export class QuadraticBezier {
      */
     constructor(
         private readonly p1: Point,
-        private readonly accuracy: number = 4
+        private accuracy: number = 4
     ) {
         if (this.p1[0] < 0 || this.p1[0] > 1) {
             throw new BezierError("控制点P1的x坐标必须在[0, 1]之间")
+        }
+        if (accuracy !== -1) {
+            this.accuracy = 10 ** accuracy
         }
     }
 
@@ -213,13 +222,16 @@ export class CubicBezier {
     constructor(
         private readonly p1: Point,
         private readonly p2: Point,
-        private readonly accuracy: number = 4
+        private accuracy: number = 4
     ) {
         if (this.p1[0] < 0 || this.p1[0] > 1) {
             throw new BezierError("控制点P1的x坐标必须在[0, 1]之间")
         }
         if (this.p2[0] < 0 || this.p2[0] > 1) {
             throw new BezierError("控制点P2的x坐标必须在[0, 1]之间")
+        }
+        if (accuracy !== -1) {
+            this.accuracy = 10 ** accuracy
         }
     }
 
