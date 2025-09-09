@@ -42,11 +42,7 @@ interface tryCatch {
 export const tryCatch: tryCatch = (parameter: any): any => {
     
     // 处理 Promise
-    if (parameter && 
-        typeof parameter.then === 'function' && 
-        typeof parameter.catch === 'function' && 
-        typeof parameter.finally === 'function'
-    ) {
+    if (typeof parameter === "object") {
         return (parameter as Promise<any>)
             .then(data => Object.assign([ data, null ], { data, error: null }))
             .catch(error => Object.assign([ null, error ], { data: null, error }))
@@ -65,11 +61,11 @@ export const tryCatch: tryCatch = (parameter: any): any => {
     throw new TypeError("参数类型错误，应为 Promise 或函数")
 }
 
-// import fs from "node:fs/promises"
-// (async () => {
-//     const a = await tryCatch(fs.stat("a.txt"))
-//     console.log(a)
-// })()
+import fs from "node:fs/promises"
+(async () => {
+    const a = await tryCatch(fs.stat("a.txt"))
+    console.log(typeof a)
+})()
 // console.log(a)
 // if (!a.error) {
 //     console.log(a.error)
