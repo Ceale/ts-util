@@ -1,7 +1,7 @@
 {
   "name": "@ceale/util",
   "author": "Ceale",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "module": "index.ts",
   "type": "module",
   "main": "dist/esm/index.js",
