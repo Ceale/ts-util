@@ -1,12 +1,5 @@
 type Point = [number, number]
 
-class BezierError extends Error {
-    constructor(message: string) {
-        super(message)
-        this.name = 'BezierError'
-    }
-}
-
 // --- 二次贝塞尔曲线核心计算 (P₀=(0,0), P2=(1,1)) ---
 export namespace quadraticCurve {
 
@@ -170,7 +163,7 @@ export class QuadraticBezier {
         private accuracy: number = 4
     ) {
         if (this.p1[0] < 0 || this.p1[0] > 1) {
-            throw new BezierError("控制点P1的x坐标必须在[0, 1]之间")
+            throw new TypeError("控制点P1的x坐标必须在[0, 1]之间")
         }
         if (accuracy !== -1) {
             this.accuracy = 10 ** accuracy
@@ -225,10 +218,10 @@ export class CubicBezier {
         private accuracy: number = 4
     ) {
         if (this.p1[0] < 0 || this.p1[0] > 1) {
-            throw new BezierError("控制点P1的x坐标必须在[0, 1]之间")
+            throw new TypeError("控制点P1的x坐标必须在[0, 1]之间")
         }
         if (this.p2[0] < 0 || this.p2[0] > 1) {
-            throw new BezierError("控制点P2的x坐标必须在[0, 1]之间")
+            throw new TypeError("控制点P2的x坐标必须在[0, 1]之间")
         }
         if (accuracy !== -1) {
             this.accuracy = 10 ** accuracy
