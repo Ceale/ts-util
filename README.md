@@ -41,3 +41,5 @@
     - class `CubicBezier`
 - `error.ts`
     - tryCatch()
+- `type.ts`
+    - assert()

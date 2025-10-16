@@ -1,0 +1,1 @@
+export const assert = <T = any>(v: any): asserts v is T => {}
