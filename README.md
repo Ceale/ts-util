@@ -43,3 +43,4 @@
     - tryCatch()
 - `type.ts`
     - assert()
+    - defineEnum()
