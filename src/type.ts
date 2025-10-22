@@ -18,7 +18,7 @@ export const assert = <Type = any>(variable: any): asserts variable is Type => {
  *     C: "C"
  * }
  */
-const defineEnum = <T extends string>(...keys: T[]): { [K in T]: K } => {
+export const defineEnum = <T extends string>(...keys: T[]): { [K in T]: K } => {
   return keys.reduce((acc, key) => {
     acc[key] = key
     return acc
