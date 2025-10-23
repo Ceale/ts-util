@@ -18,9 +18,27 @@ export const assert = <Type = any>(variable: any): asserts variable is Type => {
  *     C: "C"
  * }
  */
-export const defineEnum = <T extends string>(...keys: T[]): { [K in T]: K } => {
-  return keys.reduce((acc, key) => {
-    acc[key] = key
-    return acc
-  }, {} as any)
+export const defineEnum = <T extends string>(...keys: T[]): {
+    [K in T]: K
+} & {
+    keys(): T[]
+    includes(key: any): boolean
+} => {
+    const obj = keys.reduce((acc, key) => {
+        acc[key] = key
+        return acc
+    }, {} as any)
+    Object.defineProperty(obj, "keys", {
+        value: () => keys,
+        writable: false,
+        enumerable: false,
+        configurable: false
+    })
+    Object.defineProperty(obj, "includes", {
+        value: (key: any) => keys.includes(key),
+        writable: false,
+        enumerable: false,
+        configurable: false
+    })
+    return obj
 }
