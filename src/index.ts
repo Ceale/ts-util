@@ -7,5 +7,3 @@ export * from "./task"
 export * from "./bezier"
 export * from "./error"
 export * from "./type"
-
-import type { EnumValue } from "./type"
