@@ -43,4 +43,7 @@
     - tryCatch()
 - `type.ts`
     - assert()
+    - expand()
     - defineEnum()
+    - Enum()
+    - EnumKeys<>

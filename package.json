@@ -1,7 +1,9 @@
 {
   "name": "@ceale/util",
   "author": "Ceale",
-  "version": "1.14.2",
+  "description": "小工具集",
+  "license": "Unlicense or CC0 or WTFPL",
+  "version": "1.15.0",
   "module": "index.ts",
   "type": "module",
   "main": "dist/esm/index.js",
