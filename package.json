@@ -1,23 +1,21 @@
 {
   "name": "@ceale/util",
+  "version": "1.15.0",
+  
   "author": "Ceale",
   "description": "小工具集",
-  "license": "Unlicense or CC0 or WTFPL",
-  "version": "1.15.0",
-  "module": "index.ts",
-  "type": "module",
-  "main": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
-  "files": ["dist"],
   "repository": {
     "url": "git+https://github.com/Ceale/ts-util.git"
   },
-  "scripts": {
-    "build": "bun run build:esm && bun run build:cjs && bun run build:ts",
-    "build:esm": "bun build --outdir=dist/esm/ --format=esm --target=node src/index.ts",
-    "build:cjs": "bun build --outdir=dist/cjs/ --format=cjs --target=node src/index.ts",
-    "build:ts": "tsc --project tsconfig.build.json"
-  },
+
+  "license": "Unlicense or CC0 or WTFPL",
+  "keywords": [ "util" ],
+
+  "type": "module",
+  "module": "index.ts",
+  "main": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": ["dist"],
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -26,14 +24,18 @@
     },
     "./package.json": "./package.json"
   },
+
+  "scripts": {
+    "build": "bun run build:esm && bun run build:cjs && bun run build:ts",
+    "build:esm": "bun build --outdir=dist/esm/ --format=esm --target=node src/index.ts",
+    "build:cjs": "bun build --outdir=dist/cjs/ --format=cjs --target=node src/index.ts",
+    "build:ts": "tsc --project tsconfig.build.json"
+  },
   "devDependencies": {
+    "typescript": "^5",
     "@types/bun": "latest"
   },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
   "dependencies": {
-    "csstype": "^3.1.3",
-    "vue": "^3.5.21"
+    "csstype": "^3.1.3"
   }
 }

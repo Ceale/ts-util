@@ -1,5 +1,7 @@
-import type { CSSProperties } from "vue"
-import type { AtRules } from "csstype"
+import type { AtRules, Properties, PropertiesHyphen } from "csstype"
+export interface CSSProperties extends PropertiesHyphen<string | number>, Properties<string | number> {
+   [v: `--${string}`]: string | number | undefined
+}
 
 export namespace css {
     
