@@ -47,3 +47,6 @@
     - defineEnum()
     - Enum()
     - EnumKeys<>
+- Object.prototype
+    - hasKeys()
+    - inKeys()
