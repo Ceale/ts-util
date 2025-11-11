@@ -1,6 +1,6 @@
 {
   "name": "@ceale/util",
-  "version": "1.16.0",
+  "version": "1.17.0",
   
   "author": "Ceale",
   "description": "小工具集",
@@ -12,8 +12,8 @@
   "keywords": [ "util" ],
 
   "type": "module",
-  "module": "index.ts",
-  "main": "dist/esm/index.js",
+  "module": "dist/esm/index.ts",
+  "main": "dist/cjs/index.js",
   "types": "dist/types/index.d.ts",
   "files": ["dist"],
   "exports": {
@@ -27,8 +27,8 @@
 
   "scripts": {
     "build": "bun run build:esm && bun run build:cjs && bun run build:ts",
-    "build:esm": "bun build --outdir=dist/esm/ --format=esm --target=node src/index.ts",
-    "build:cjs": "bun build --outdir=dist/cjs/ --format=cjs --target=node src/index.ts",
+    "build:cjs": "bun build --outdir=dist/cjs/ --format=cjs --target=node --packages=external src/index.ts",
+    "build:esm": "bun build --outdir=dist/esm/ --format=esm --target=node --packages=external src/index.ts",
     "build:ts": "tsc --project tsconfig.build.json"
   },
   "devDependencies": {

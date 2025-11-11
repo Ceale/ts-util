@@ -14,6 +14,13 @@ export const assert = <Type = any>(variable: any): asserts variable is Type => v
  */
 export const expand = <Type>(variable: any): asserts variable is (typeof variable & Type) => variable
 
+/**
+ * 一种介于 `any` 与 `object` 之间的类型
+ * - 与 `any` 类似，可以任意访问属性
+ * - 与 `object` 类似，排除了原始类型
+ */
+export type anyobject = Record<any, any>
+
 /** 
  * 定义一个枚举类型。
  * 返回一个枚举对象，其中每个键名与值相同。
