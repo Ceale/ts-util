@@ -1,0 +1,29 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Publish Build to NPM
+on:
+  workflow_dispatch:
+
+# permissions:
+#   id-token: write  # Required for OIDC
+#   contents: read
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      # 拉取仓库
+      - uses: actions/checkout@v4
+      # 安装 bun，安装依赖，构建
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      # 设置 node，发布
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org/
+      # - run: npm publish
+        # env:
+        #   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
