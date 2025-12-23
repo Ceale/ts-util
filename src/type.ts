@@ -1,4 +1,16 @@
 /**
+ * 一种介于 `any` 与 `object` 之间的类型
+ * - 与 `any` 类似，可以任意访问属性
+ * - 与 `object` 类似，排除了原始类型
+ */
+export type anyobject = Record<any, any>
+
+/**
+ * 表示任意的类或构造函数
+ */
+export type AnyClass = new (...args: any[]) => any
+
+/**
  * 就地断言一个变量为指定类型
  * @template Type 断言的类型，默认为`any`
  * @param variable 待断言的变量
@@ -13,13 +25,6 @@ export const assert = <Type = any>(variable: any): asserts variable is Type => v
  * @returns 传入的变量，且类型被拓展为指定类型
  */
 export const expand = <Type>(variable: any): asserts variable is (typeof variable & Type) => variable
-
-/**
- * 一种介于 `any` 与 `object` 之间的类型
- * - 与 `any` 类似，可以任意访问属性
- * - 与 `object` 类似，排除了原始类型
- */
-export type anyobject = Record<any, any>
 
 /** 
  * 定义一个枚举类型。
@@ -71,3 +76,4 @@ export const Enum = (keys: Record<string, string>) => ({
  * Enum<typeof 对吗> // "对" | "不对"
  */
 export type EnumKeys<E> = E[keyof E]
+// 定义一个通用的类/构造函数类型

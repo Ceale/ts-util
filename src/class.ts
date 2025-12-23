@@ -1,5 +1,4 @@
-// 定义一个通用的类/构造函数类型
-type AnyClass = new (...args: any[]) => any
+import type { AnyClass } from "./type"
 
 declare global {
     interface Function {

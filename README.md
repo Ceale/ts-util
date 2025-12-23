@@ -48,6 +48,7 @@
     - Enum()
     - EnumKeys<>
     - `type` anyobject
+    - `type` AnyClass
 - Object.prototype
     - hasKeys()
     - inKeys()
