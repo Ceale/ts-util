@@ -6,9 +6,8 @@ name: Publish
 on:
   workflow_dispatch:
 
-# permissions:
-#   id-token: write  # Required for OIDC
-#   contents: read
+permissions:
+  packages: write
 
 jobs:
   publish-npm:
