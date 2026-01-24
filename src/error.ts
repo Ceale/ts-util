@@ -19,10 +19,10 @@ type Failure<E> = {
 type Result<T, E = any> = Success<T> | Failure<E>
 
 interface tryCatch {
-    // 捕获所有
+    /** 捕获所有 */
     <T>(func: (() => T)): Result<T>
     <T>(asyncFunc: Promise<T>): Promise<Result<T>>
-    // 捕获指定
+    /** 捕获指定 */
     <T, E extends AnyClass>(func: (() => T), catchClass: E): Result<T, InstanceType<E>>
     <T, E extends AnyClass>(func: Promise<T>, catchClass: E): Promise<Result<T, InstanceType<E>>>
 }
