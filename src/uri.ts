@@ -17,15 +17,16 @@ export namespace uri {
      * 
      * @example
      * // 基础拼接
-     * uri.join('/a/', 'b', '/c') // -> "/a/b/c"
+     * uri.join('/a/', 'b', '/c')
+     * // "/a/b/c"
      * 
-     * @example
      * // 路径解析
-     * uri.join('/a/b/../c') // -> "/a/c"
+     * uri.join('/a/b/../c')
+     * // "/a/c"
      * 
-     * @example
      * // 保留协议头
-     * uri.join("http://example.com", "a") // -> "http://example.com/a"
+     * uri.join("http://example.com", "a")
+     * // "http://example.com/a"
      */
     export const join = (...path: string[]) => {
         return path
