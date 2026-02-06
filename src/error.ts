@@ -16,7 +16,7 @@ type Failure<E> = {
     error: E
 ]
 
-type Result<T, E = any> = Success<T> | Failure<E>
+type Result<T, E extends unknown = Error> = Success<T> | Failure<E>
 
 interface tryCatch {
     /** 捕获所有 */
