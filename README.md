@@ -10,7 +10,7 @@
     - removeAllSuffixes()
     - toCamelCase()
     - toKebabCase()
-- Function.prototype
+- namespace: `ClassUtil`
     - isDirectSubclass()
     - isSubclass()
     - isDirectInstance()
@@ -44,11 +44,16 @@
 - `type.ts`
     - assert()
     - expand()
+    - `type` anyobject
+    - `type` AnyClass
+    - `type` RequireOne
+- `enum_v2.ts`:
+    - Enum()
+    - EnumOf<>
+- `enum_v1.ts`
     - defineEnum()
     - Enum()
     - EnumKeys<>
-    - `type` anyobject
-    - `type` AnyClass
 - Object.prototype
     - hasKeys()
     - inKeys()

@@ -25,3 +25,19 @@ export const assert = <Type = any>(variable: any): asserts variable is Type => v
  * @returns 传入的变量，且类型被拓展为指定类型
  */
 export const expand = <Type>(variable: any): asserts variable is (typeof variable & Type) => variable
+
+/**
+ * 强制对象类型中至少包含一个指定的属性。
+ * @example
+ * ```ts
+ * interface User { id: string; name: string; age: number; }
+ * // 有效：包含一个或多个属性
+ * const update: RequireOne<User> = { name: 'Gemini' };
+ * // 错误：不允许空对象
+ * const invalid: RequireOne<User> = {}; 
+ * ```
+ * @template T - 需要处理的基础对象接口。其中不应有可选属性，有可能会导致未预料的情况。
+ */
+export type RequireOne<T> = {
+    [K in keyof T]: Required<Pick<T, K>> & Partial<Omit<T, K>>
+}[keyof T]
