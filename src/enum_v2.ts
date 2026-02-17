@@ -6,7 +6,7 @@ type EnumKeyValue<T extends readonly string[]> = {
 
 interface EnumMethod<T extends readonly string[]> {
     values(): T
-    includes<V extends any>(value: V): boolean
+    includes(value: unknown): value is T[number]
 }
 
 /**
