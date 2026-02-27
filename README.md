@@ -47,10 +47,13 @@
     - `type` anyobject
     - `type` AnyClass
     - `type` RequireOne
-- `enum_v2.ts`:
+- `enum_v3.ts`
     - Enum()
     - EnumOf<>
-- `enum_v1.ts`
+- namespace: `EnumV2`
+    - Enum()
+    - EnumOf<>
+- namespace: `EnumV1`
     - defineEnum()
     - Enum()
     - EnumKeys<>
