@@ -19,12 +19,15 @@ export type EnumOf<T extends Record<string, any>> = Extract<T[keyof T], string |
 export const Enum = <const T extends Record<string, string | number>>(definition: T) => {
     const values = Object.values(definition)
     const methods = {
-        values: () => values as T[keyof T][],
-        includes: (value: any): value is T[keyof T] => values.includes(value)
+        values: () => values,
+        includes: (value: any) => values.includes(value)
+    } as {
+        values(): T[keyof T][],
+        includes(value: any): value is T[keyof T]
     }
     Object.defineProperties(methods, {
         values: { enumerable: false },
         includes: { enumerable: false }
     })
-    return Object.freeze(Object.assign(definition, methods))
+    return Object.freeze(Object.assign(methods, definition))
 }
